@@ -120,8 +120,35 @@ var tours = [
     {id: 1, name: 'LA, USA', price: 149.95},
     {id: 2, name: 'LAS VEGAS, USA', price: 125.95},
 ];
+app.get('/api/tours', function(req, res){
+    res.json(tours);
+});
 
-app.listen(app.get('port'), function(){
-    console.log( 'Express started on http://localhost:' +
-        app.get('port') + '; press Ctrl-C to terminate.' );
+app.get('/api/tours', function(req,res) {
+    var toursXml = '<?xml version="1.0"?><tours>' +
+        products.map(function (p) {
+            return '<tour price="' + p.price +
+                '" id="' + p.id + '">' + p.name + '</tour>';
+        }).join('') + '</tours>';
+    var toursText = tours.map(function (p) {
+        return p.id + ' : ' + p.name + ' (' + p.price + ' )';
+    }).join('\n');
+    res.format({
+        'application/json': function () {
+            res.json(tours);
+        },
+        'application/xml': function () {
+            res.type('application/xml');
+            res.send(tourXml);
+        },
+        'text/plain': function () {
+            res.type('text/plain');
+            res.send(tourXml);
+        }
+    });
+});
+
+app.listen(app.get('port'), function() {
+    console.log('Express started on http://localhost:' +
+        app.get('port') + '; press Ctrl-C to terminate.');
 });
