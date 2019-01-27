@@ -120,6 +120,7 @@ var tours = [
     {id: 1, name: 'LA, USA', price: 149.95},
     {id: 2, name: 'LAS VEGAS, USA', price: 125.95},
 ];
+
 app.get('/api/tours', function(req, res){
     res.json(tours);
 });
@@ -147,6 +148,37 @@ app.get('/api/tours', function(req,res) {
         }
     });
 });
+
+// Dummy Data To Test Something
+// Nothing here is accurate.
+
+function getWeatherData(){
+    return {
+        locations: [
+            {
+            name: 'Portland',
+            forecastUrl: 'http://www.wunderground.com/US/OR/Portland.html',
+            iconUrl: 'http://icons-ak-wxug.com/i/c/k/cloudy.gif',
+            weather: 'Overcast',
+            temp: '54.1 F (12.3 C)',
+        },
+            {
+              name: 'Band',
+              forecastUrl: 'http://wwww.wunderground.com/US/OR/Bend.html',
+              iconUrl: 'http;//icons-ak-wxug.com/i/c/k/cloudy.gif, '
+              weather: 'Overcast',
+              temp: '54.1 F (12.3 C)',
+            },
+            {
+                name: 'Band',
+                forecastUrl: 'http://wwww.wunderground.com/US/OR/Bend.html',
+                iconUrl: 'http;//icons-ak-wxug.com/i/c/k/cloudy.gif, '
+                weather: 'Overcast',
+                temp: '54.1 F (12.3 C)',
+            },
+            ],
+    }
+}
 
 app.listen(app.get('port'), function() {
     console.log('Express started on http://localhost:' +
