@@ -49,6 +49,9 @@ app.get('/tours/oregon-coast', function(req, res){
 app.get('/tours/request-group-rate', function(req, res){
     res.render('tours/request-group-rate');
 });
+app.get('/form_test', function(req, res){
+    res.render('form_test');
+});
 
 // express route to explain headers.
 
