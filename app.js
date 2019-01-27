@@ -34,6 +34,9 @@ app.get('/', function(req, res) {
 app.get('/contact', function(req,res){
     res.render('contact', {fortune: fortune.getFortune() } );
 });
+app.get('/payment', function(req,res){
+    res.render('payment', {fortune: fortune.getFortune() } );
+});
 app.get('/about', function(req,res){
     res.render('about', {fortune: fortune.getFortune() } );
 });
@@ -156,29 +159,35 @@ function getWeatherData(){
     return {
         locations: [
             {
-            name: 'Portland',
-            forecastUrl: 'http://www.wunderground.com/US/OR/Portland.html',
-            iconUrl: 'http://icons-ak-wxug.com/i/c/k/cloudy.gif',
-            weather: 'Overcast',
-            temp: '54.1 F (12.3 C)',
+                name: 'Portland',
+                forecastUrl: 'http://www.wunderground.com/US/OR/Portland.html',
+                iconUrl: 'http://icons-ak-wxug.com/i/c/k/cloudy.gif',
+                weather: 'Overcast',
+                temp: '54.1 F (12.3 C)',
         },
             {
-              name: 'Band',
-              forecastUrl: 'http://wwww.wunderground.com/US/OR/Bend.html',
-              iconUrl: 'http;//icons-ak-wxug.com/i/c/k/cloudy.gif, '
-              weather: 'Overcast',
-              temp: '54.1 F (12.3 C)',
+                name: 'Band',
+                forecastUrl: 'http://wwww.wunderground.com/US/OR/Bend.html',
+                iconUrl: 'http;//icons-ak-wxug.com/i/c/k/cloudy.gif,',
+                weather: 'Partly Cloudy',
+                temp: '54.1 F (12.3 C)',
             },
             {
                 name: 'Band',
                 forecastUrl: 'http://wwww.wunderground.com/US/OR/Bend.html',
-                iconUrl: 'http;//icons-ak-wxug.com/i/c/k/cloudy.gif, '
-                weather: 'Overcast',
+                iconUrl: 'http;//icons-ak-wxug.com/i/c/k/cloudy.gif,',
+                weather: 'Light Rain',
                 temp: '54.1 F (12.3 C)',
             },
-            ],
-    }
+        ],
+    };
 }
+
+app.use(function(req, res, next){
+    if(!res.locals.partials) res.locals.partials = {};
+    res.locals.partials.weatherContext = getWeatherData();
+    next();
+});
 
 app.listen(app.get('port'), function() {
     console.log('Express started on http://localhost:' +
