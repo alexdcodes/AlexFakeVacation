@@ -1,0 +1,31 @@
+<h1>Payment</h1>
+
+<p>Fortune:</p>
+<blockquote>{{fortune}}</blockquote>
+<p>ny questions or comments.</p>
+
+<ul>
+    {{#each tours}}
+    {{! I am a new blok and the context has changed }}
+        <li>
+            {{name}} - {{price}}
+            {{#if .. /currencey}}
+                ({{../../currency.abbrev}})
+            {{/if}}
+        </li>
+    {{/each}}
+</ul>
+{{#unless currencies}}
+    <p>All prices in {{currency.name}}</p>
+{{/unless}}
+{{#if specialUrl}}
+{{! Im in a new block but the context hasnt been changed soft of }}
+    <p>Check out our <a href=""{{specialUrl}}">specials!</p>
+{{else}}
+    <p>Please check back often for specials</p>
+{{/if}}
+{{#each currencies}}
+    <a href="#" class=""currency"{{.}}</a>
+{{else}}
+    Unfortunetly we currently accept {{currency.name}}
+{{/each}}
