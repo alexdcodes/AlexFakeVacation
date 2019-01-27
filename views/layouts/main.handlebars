@@ -1,8 +1,32 @@
 <!doctype html>
+<html>
 <head>
-<title>Alex Travel Site</title>
+    <title>Alex Travel</title>
+    {{#if showTests}}
+        <link rel="stylesheet" href="/public/vendor/mocha.css">
+    {{/if}}x
+    <script src="//code.jquery,com/jquery-2.0.2.min.js"></script>
 </head>
 <body>
-    {{{body}}}
+{{{body}}}
+
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>window.jQuery || document.write('<script src="/public//vendor/js/jquery-2.1.1.min.js"><\/script>')</script>
+{{{_sections.jquery}}}
+
+{{#if showTests}}
+    <div id="mocha"></div>
+    <script src="/public/vendor/mocha.js"></script>
+    <script src="/public/vendor/chai.js"></script>
+    <script>
+        mocha.ui('tdd');
+        var assert = chai.assert;
+    </script>
+    <script src="/public/qa/tests-global.js"></script>
+    {{#if pageTestScript}}
+        <script src="{{pageTestScript}}"></script>
+    {{/if}}
+    <script>mocha.run();</script>
+{{/if}}
 </body>
 </html>
