@@ -31,11 +31,11 @@ app.use(function(req, res, next){
 app.get('/', function(req, res) {
     res.render('home');
 });
+app.get('/contact', function(req,res){
+    res.render('contact', {fortune: fortune.getFortune() } );
+});
 app.get('/about', function(req,res){
-    res.render('about', {
-        fortune: fortune.getFortune(),
-        pageTestScript: '/qa/tests-about.js'
-    } );
+    res.render('about', {fortune: fortune.getFortune() } );
 });
 app.get('/tours/hood-river', function(req, res){
     res.render('tours/hood-river');
