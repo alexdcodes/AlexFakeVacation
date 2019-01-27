@@ -65,30 +65,29 @@ app.get('/greeting', function(req, res){
         message: 'welcome',
         style: req.query.style,
         userid: req.cookie.userid,
-        username: re.session.username,
+        username: req.session.username,
     });
     app.get('/test', function(req, res){
-        res.type('text/plain);' +
+            res.type('text/plain');
             res.send('This is a test');
     });
 });
-    
+
 app.use(function(err, req, res, next){
     console.error(err.stack);
     res.status(500);
     res.render('500');
 });
 
-app.use(function(req, res, next){
-    res.status(404);
-    res.render('404');
+// This should appear AFTER all of your routes
+
+app.use(function(req,res){
+    res.status(404).render('not-found');
 });
 
-// Adding an error handdler
+// Adding an error handler
 // This should appear after all your routes.
 // add soon here
-
-
 
 app.listen(app.get('port'), function(){
     console.log( 'Express started on http://localhost:' +
