@@ -71,12 +71,17 @@ app.get('/greeting', function(req, res){
             res.type('text/plain');
             res.send('This is a test');
     });
-});
 
-app.use(function(err, req, res, next){
-    console.error(err.stack);
-    res.status(500);
-    res.render('500');
+    // Adding an error handler
+    // this should appear after all of your routes
+    // note that even if yu dont need the next
+    // function it must be included for Express
+    // to recognize this as n error handler.
+
+    app.user(function(err, req, res, next){
+        console.error(err.stack);
+        res.status(500).render('error');
+    })
 });
 
 // This should appear AFTER all of your routes
@@ -85,9 +90,36 @@ app.use(function(req,res){
     res.status(404).render('not-found');
 });
 
+// body parser middleware must be linked in form processing
+app.post('/process-contact', function(req, res){
+    console.log('Recieved contact from ' + req.body.name +
+    ' <' + req.body.email + '>');
+    // save to data base...
+    res.redirect(303, '/thank-you');
+});
+// body parse middleware must be linked in
+app.post('/process-contact', function(req, res){
+    console.log('Recieved contact from ' + req.body.name +
+    ' < ' + req.body.email + '>');
+        try {
+        return res.xhr ?
+            res.render ({ success: true}) :
+            res.redirect(303, '/thank-you');
+} catch (ex) {
+    return res.xhr ?
+        res.json({ error: 'Database error.'}) :
+        res.redirect(303, '/database-error');
+    }
+});
 // Adding an error handler
 // This should appear after all your routes.
 // add soon here
+
+var tours = [
+    {id: 0, name: 'Toronto, Ontario', price: 99.99},
+    {id: 1, name: 'LA, USA', price: 149.95},
+    {id: 2, name: 'LAS VEGAS, USA', price: 125.95},
+];
 
 app.listen(app.get('port'), function(){
     console.log( 'Express started on http://localhost:' +
