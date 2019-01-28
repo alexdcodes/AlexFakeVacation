@@ -22,3 +22,13 @@
         </div>
     </div>
 </form>
+    </div>
+{{#section 'jquiery'}}
+    <script>
+        $(document).ready(function(){
+            $('.newsletterForm').on('submit', function(evt){
+                evt.preventDefault();
+            })
+        })
+    </script>
+{{/section}}
