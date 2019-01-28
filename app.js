@@ -39,6 +39,9 @@ app.get('/newsletter', function(req,res){
 // POST PROCESS Continue here
 app.post('/process', function(req, res){
     console.log('Form (from querystring): ' + req.query.form);
+    console.log('CSRF token (from hidden form field): ' + req.body._csrf);
+    console.log('Name (from visible form field): ' + req.body.name);
+
 });
 
 app.get('/', function(req, res) {
