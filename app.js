@@ -79,7 +79,19 @@ app.post('/contest/vacation-photo/:year/:month', function(req,res){
     });
 });
 
+var jpupload = require('jquery-file-upload-middleware');
 
+app.use('/upload', function(req, res, next){
+    var now = Date.now();
+    jpupload.fileHandler({
+        uploadDir: function() {
+            return __dirname + '/public/uploads/' + now;
+        },
+        uploadUrl: function(){
+            return '/uploads/' + now;
+        },
+        })(req, res, next);
+});
 
 app.get('/contact', function(req,res){
     res.render('contact', {fortune: fortune.getFortune() } );
