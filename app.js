@@ -58,7 +58,7 @@ app.post('/process', function(req, res){
     }
 });
 
-var formidable require('formidable');
+var formidable = require('formidable');
 
 app.get('/contest/vacation-photo',function(req,res){
     var now = new Date();
