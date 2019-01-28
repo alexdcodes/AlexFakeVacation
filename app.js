@@ -48,6 +48,16 @@ app.post('/process', function(req, res){
     console.log('Email (from visible form field): ' + req.body.email);
     res.redirect(303, '/thank-you');
 });
+app.post('/process', function(req, res){
+    if(req.xhr || req.accepts('json.html')==='json') {
+        // if there were an error we would send error description.
+        res.send({success: true});
+    } else {
+        // if there were an error we would redirect to an error page
+        res.redirect(303, '/thank-you');
+    }
+}); 
+
 app.get('/contact', function(req,res){
     res.render('contact', {fortune: fortune.getFortune() } );
 });
