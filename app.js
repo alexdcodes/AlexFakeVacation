@@ -30,6 +30,17 @@ app.use(function(req, res, next){
 
 app.use(require('body-parser').urlencoded({extended:true}));
 
+app.get('/newsletter', function(req,res){
+    //will learn about CSRF later...for now we just
+    // provide a dummy value
+    res.render('newletter', { csrf: 'CSRF token goes here'});
+});
+
+// POST PROCESS Continue here
+app.post('/process', function(req, res){
+    console.log('Form (from querystring): ' + req.query.form);
+});
+
 app.get('/', function(req, res) {
     res.render('home');
 });
