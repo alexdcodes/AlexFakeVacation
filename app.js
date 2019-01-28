@@ -28,6 +28,8 @@ app.use(function(req, res, next){
     next();
 });
 
+app.use(require('body-parser').urlencoded({extended:true}));
+
 app.get('/', function(req, res) {
     res.render('home');
 });
